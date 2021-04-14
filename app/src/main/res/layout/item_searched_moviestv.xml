@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black_two">
+
+    <ImageView
+        android:id="@+id/movieTvSearchPoster"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_image"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/movieTvSearchTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:fontFamily="sans-serif-black"
+        app:layout_constraintBottom_toTopOf="@id/movieTvSearchGenre"
+        app:layout_constraintEnd_toStartOf="@id/subscribeSearchButton"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/movieTvSearchPoster"
+        app:layout_constraintTop_toTopOf="@id/subscribeSearchButton"
+        tools:text="Breaking Bad" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/movieTvSearchGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white_opacity_40"
+        android:textSize="18sp"
+        app:fontFamily="sans-serif"
+        app:layout_constraintBottom_toBottomOf="@id/subscribeSearchButton"
+        app:layout_constraintStart_toEndOf="@id/movieTvSearchPoster"
+        app:layout_constraintTop_toBottomOf="@id/movieTvSearchTitle"
+        app:textAllCaps="true"
+        tools:text="Drama" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/subscribeSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:minHeight="0dp"
+        android:paddingHorizontal="10dp"
+        android:text="@string/subscribe"
+        android:textColor="@color/white_opacity_40"
+        android:textSize="12sp"
+        app:backgroundTint="@android:color/transparent"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/white_opacity_40"
+        app:strokeWidth="1dp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/warm_gray_opacity_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/movieTvSearchGenre" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

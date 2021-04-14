@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Movies</string>
+
+    <string name="api_error">An error has occurred</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="timeout">Connection timeout</string>
+
+    <string name="movies_api_key">208ca80d1e219453796a7f9792d16776</string>
+
+    <string name="tv_show_reminder">TV Show Reminder</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="all">All</string>
+    <string name="no_genre">No genre specified</string>
+    <string name="retry">Retry</string>
+    <string name="nothing_to_show_here">Nothing to show here</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="overview">Overview</string>
+</resources>
