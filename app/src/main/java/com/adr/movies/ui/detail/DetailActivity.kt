@@ -53,11 +53,14 @@ class DetailActivity : AppCompatActivity() {
 
         movieTvDetailYear.text = formatDate()
 
-        // Presenta inconsistencias todavía
-        /*val posterOriginalWidth = movieTvDetailPoster.layoutParams.width
+        val posterOriginalWidth = movieTvDetailPoster.layoutParams.width
+        var lastVerticalOffset = 0
         appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-            movieTvDetailPoster.updateLayoutParams { width = posterOriginalWidth + verticalOffset }
-        })*/
+            if (verticalOffset != lastVerticalOffset && (verticalOffset + lastVerticalOffset) <= 5)
+                movieTvDetailPoster.updateLayoutParams { width = posterOriginalWidth + verticalOffset }
+            lastVerticalOffset = verticalOffset
+            // FIXME: 14/04/2021 inconsistent update
+        })
     }
 
     private fun setPaletteColors() {
