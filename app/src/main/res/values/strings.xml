@@ -12,6 +12,9 @@
     <string name="cancel">Cancel</string>
     <string name="all">All</string>
     <string name="no_genre">No genre specified</string>
+    <string name="no_title">No title specified</string>
+    <string name="no_date">No date specified</string>
+    <string name="no_description">No description specified</string>
     <string name="retry">Retry</string>
     <string name="nothing_to_show_here">Nothing to show here</string>
     <string name="subscribed">Subscribed</string>

@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
     companion object {
         const val MOVIETV = "MOVIETV"
         const val MOVIE = "movie"
-        const val TV = "serie"
+        const val TV = "tv"
     }
 
     //private lateinit var viewModel: DetailViewModel
@@ -45,16 +45,11 @@ class DetailActivity : AppCompatActivity() {
             .into(movieTvDetailPoster)
         movieTvDetailPoster.clipToOutline = true
 
-        movieTvDetailTitle.text = movieTv.original_title
+        movieTvDetailTitle.text = movieTv.original_title?: getString(R.string.no_title)
 
-        movieTvDetailDescription.text = movieTv.overview
+        movieTvDetailDescription.text = movieTv.overview?: getString(R.string.no_description)
 
         movieTvDetailYear.text = formatDate()
-
-        val inicialImageHeigh = movieTvDetailPoster.height
-        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-
-        })
     }
 
     private fun setPaletteColors() {
@@ -124,7 +119,7 @@ class DetailActivity : AppCompatActivity() {
             calendar.get(Calendar.YEAR).toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            movieTv.release_date!!
+            movieTv.release_date?: getString(R.string.no_date)
         }
     }
 

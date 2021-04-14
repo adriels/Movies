@@ -15,7 +15,10 @@ import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.item_searched_moviestv.view.*
 
-class SearchRecyclerViewAdapter(var movieTvList: List<MovieTv>?, val onClickMovieTv: (MovieTv) -> Unit) :
+class SearchRecyclerViewAdapter(
+    var movieTvList: List<MovieTv>?,
+    val onClickMovieTv: (MovieTv) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -26,10 +29,10 @@ class SearchRecyclerViewAdapter(var movieTvList: List<MovieTv>?, val onClickMovi
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (!movieTvList.isNullOrEmpty())
-                (holder as SearchedViewHolder).bind(movieTvList!![position])
+            (holder as SearchedViewHolder).bind(movieTvList!![position])
     }
 
-    override fun getItemCount(): Int = movieTvList?.size?: 0
+    override fun getItemCount(): Int = movieTvList?.size ?: 0
 
     inner class SearchedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(data: MovieTv) {
@@ -40,22 +43,32 @@ class SearchRecyclerViewAdapter(var movieTvList: List<MovieTv>?, val onClickMovi
                     .load("https://image.tmdb.org/t/p/w500/${data.poster_path}")
                     .into(movieTvSearchPoster)
 
-                movieTvSearchTitle.text = data.original_title
+                movieTvSearchTitle.text = data.original_title?: context.getString(R.string.no_title)
 
                 when (data.media_type) {
                     MOVIE -> AppPreference(context).getMovieGenres().genres.forEach {
-                        if (data.genre_ids[0] == it.id) {
-                            movieTvSearchGenre.text = it.name
+                        if (!data.genre_ids.isNullOrEmpty()) {
+                            if (data.genre_ids[0] == it.id) {
+                                movieTvSearchGenre.text = it.name
+                                return@forEach
+                            }
+                        } else {
+                            movieTvSearchGenre.text = context.getString(R.string.no_genre)
                             return@forEach
                         }
                     }
                     TV -> AppPreference(context).getTvGenres().genres.forEach {
-                        if (data.genre_ids[0] == it.id) {
-                            movieTvSearchGenre.text = it.name
+                        if (!data.genre_ids.isNullOrEmpty()) {
+                            if (data.genre_ids[0] == it.id) {
+                                movieTvSearchGenre.text = it.name
+                                return@forEach
+                            }
+                        } else {
+                            movieTvSearchGenre.text = context.getString(R.string.no_genre)
                             return@forEach
                         }
                     }
-                    else -> movieTvSearchGenre.text = resources.getString(R.string.no_genre)
+                    else -> movieTvSearchGenre.text = context.getString(R.string.no_genre)
                 }
 
                 subscribeSearchButton.setOnClickListener {
@@ -73,7 +86,11 @@ class SearchRecyclerViewAdapter(var movieTvList: List<MovieTv>?, val onClickMovi
             }
         }
 
-        private fun checkButton(context: Context, data: MovieTv, list: ArrayList<MovieTv>? = arrayListOf()): Boolean {
+        private fun checkButton(
+            context: Context,
+            data: MovieTv,
+            list: ArrayList<MovieTv>? = arrayListOf()
+        ): Boolean {
             val founded = list?.indexOfFirst { filteredMovieTv -> filteredMovieTv.id == data.id }
             val subscribed = founded!! >= 0
             with(itemView.subscribeSearchButton as MaterialButton) {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.adr.movies.data.entity.GenreList
 import com.adr.movies.data.entity.MovieTvList
+import com.adr.movies.data.entity.SearchList
 import com.adr.movies.data.remote.ApiClientProxy
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -14,6 +15,7 @@ class MainViewModel : ViewModel() {
     val listLiveData = MutableLiveData<MovieTvList>()
     val genreListLiveData = MutableLiveData<Pair<GenreList, GenreList>>()
     val errorLiveData = MutableLiveData<Throwable>()
+    val searchListLiveData = MutableLiveData<SearchList>()
 
     private var completeList: MovieTvList? = null
     private var listId = 1
@@ -60,6 +62,17 @@ class MainViewModel : ViewModel() {
             )
                 .subscribe({ genreListLiveData.postValue(it) }, { errorLiveData.postValue(it) })
         )
+    }
+
+    fun searchMoviesTv(context: Context, query: String) {
+        compositeDisposable.add(
+            ApiClientProxy.searchMoviesTv(context, query)
+                .subscribe({ searchListLiveData.postValue(it) }, { errorLiveData.postValue(it) })
+        )
+    }
+
+    fun dispose() {
+        compositeDisposable.dispose()
     }
 
     override fun onCleared() {

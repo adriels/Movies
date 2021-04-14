@@ -64,10 +64,14 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 with((searchRecyclerView.adapter as SearchRecyclerViewAdapter)) {
                     if (!newText.isNullOrBlank()) {
-                        movieTvList =
+                        /*movieTvList =
                             completeList?.filter { it.original_title!!.contains(newText, true) }
-                        notifyDataSetChanged()
+                        notifyDataSetChanged()*/
+                        loadMoreItems(true)
+                        viewModel.searchMoviesTv(this@MainActivity, newText)
                     } else {
+                        loadMoreItems(false)
+                        viewModel.dispose()
                         movieTvList = listOf()
                         notifyDataSetChanged()
                     }
@@ -90,6 +94,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.genreListLiveData.observe(this, {
             AppPreference(this).setGenres(it)
             viewModel.getMovieTvList(this)
+        })
+        viewModel.searchListLiveData.observe(this, {
+            loadMoreItems(false)
+            with(searchRecyclerView.adapter as SearchRecyclerViewAdapter) {
+                movieTvList =
+                    it.results.filter { it.media_type == DetailActivity.MOVIE || it.media_type == DetailActivity.TV }
+                notifyDataSetChanged()
+            }
         })
         viewModel.errorLiveData.observe(this, {
             circularProgressBar.visibility = View.GONE

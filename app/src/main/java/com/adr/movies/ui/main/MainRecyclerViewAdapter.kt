@@ -63,22 +63,32 @@ class MainRecyclerViewAdapter(
                     .into(movieTvPoster)
                 movieTvPoster.clipToOutline = true
 
-                movieTvTitle.text = data.original_title
+                movieTvTitle.text = data.original_title?: context.getString(R.string.no_title)
 
                 when (data.media_type) {
                     MOVIE -> AppPreference(context).getMovieGenres().genres.forEach {
-                        if (data.genre_ids[0] == it.id) {
-                            movieTvGenre.text = it.name
+                        if (!data.genre_ids.isNullOrEmpty()) {
+                            if (data.genre_ids[0] == it.id) {
+                                movieTvGenre.text = it.name
+                                return@forEach
+                            }
+                        } else {
+                            movieTvGenre.text = context.getString(R.string.no_genre)
                             return@forEach
                         }
                     }
                     TV -> AppPreference(context).getTvGenres().genres.forEach {
-                        if (data.genre_ids[0] == it.id) {
-                            movieTvGenre.text = it.name
+                        if (!data.genre_ids.isNullOrEmpty()) {
+                            if (data.genre_ids[0] == it.id) {
+                                movieTvGenre.text = it.name
+                                return@forEach
+                            }
+                        } else {
+                            movieTvGenre.text = context.getString(R.string.no_genre)
                             return@forEach
                         }
                     }
-                    else -> movieTvGenre.text = resources.getString(R.string.no_genre)
+                    else -> movieTvGenre.text = context.getString(R.string.no_genre)
                 }
 
                 setOnClickListener { onClickMovieTv(data) }

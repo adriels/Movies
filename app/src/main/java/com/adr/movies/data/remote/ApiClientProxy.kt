@@ -9,15 +9,20 @@ object ApiClientProxy {
     fun getMoviesTvList(context: Context, listId: Int) =
         ApiClient.getServiceClient().getList(listId, context.getString(R.string.movies_api_key))
             .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())!!
 
     fun getMoviesGenres(context: Context) =
         ApiClient.getServiceClient().getMoviesGenres(context.getString(R.string.movies_api_key))
             .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())!!
 
     fun getTvGenres(context: Context) =
         ApiClient.getServiceClient().getTvGenres(context.getString(R.string.movies_api_key))
             .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())!!
+
+    fun searchMoviesTv(context: Context, query: String) =
+        ApiClient.getServiceClient().searchMoviesTv(context.getString(R.string.movies_api_key), query)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())!!
 }

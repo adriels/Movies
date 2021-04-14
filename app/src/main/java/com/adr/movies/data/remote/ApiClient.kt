@@ -4,12 +4,14 @@ import android.util.Log
 import com.adr.movies.BuildConfig
 import com.adr.movies.data.entity.GenreList
 import com.adr.movies.data.entity.MovieTvList
+import com.adr.movies.data.entity.SearchList
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -66,5 +68,11 @@ object ApiClient {
         fun getTvGenres(
                 @Query("api_key") apiKey: String
         ): Observable<GenreList>
+
+        @GET("search/multi")
+        fun searchMoviesTv(
+            @Query("api_key") apiKey: String,
+            @Query("query", encoded = true) query: String
+        ): Observable<SearchList>
     }
 }
