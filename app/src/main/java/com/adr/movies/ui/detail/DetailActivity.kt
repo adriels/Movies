@@ -3,9 +3,10 @@ package com.adr.movies.ui.detail
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
+import androidx.core.view.updateLayoutParams
 import androidx.palette.graphics.Palette
 import com.adr.movies.R
 import com.adr.movies.data.AppPreference
@@ -13,6 +14,7 @@ import com.adr.movies.data.entity.MovieTv
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.text.SimpleDateFormat
@@ -50,6 +52,12 @@ class DetailActivity : AppCompatActivity() {
         movieTvDetailDescription.text = movieTv.overview?: getString(R.string.no_description)
 
         movieTvDetailYear.text = formatDate()
+
+        // Presenta inconsistencias todavía
+        /*val posterOriginalWidth = movieTvDetailPoster.layoutParams.width
+        appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            movieTvDetailPoster.updateLayoutParams { width = posterOriginalWidth + verticalOffset }
+        })*/
     }
 
     private fun setPaletteColors() {
